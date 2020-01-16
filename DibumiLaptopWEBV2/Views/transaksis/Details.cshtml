@@ -1,0 +1,146 @@
+﻿@model DibumiLaptopWEBV2.Models.transaksi
+
+@{
+    ViewBag.Title = "Detail Transaksi kode" + Model.id;
+}
+
+<div class="invoice">
+    <div class="invoice-print">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="invoice-title">
+                    <h2>Invoice PT. Dibumi Dot Com</h2>
+                    <div class="invoice-number">Kode Order #@Html.DisplayFor(model => model.id)</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <address>
+                            <strong>Pemberitahuan:</strong><br>
+                            Invoice ini adalah bukti pembayaran yang sah<br>
+                            harap disimpan untuk pengajuan komplain, pengembalian, atau garansi.
+                        </address>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <address>
+                            <strong>Tanggal Transaksi:</strong><br>
+                            @Html.DisplayFor(model => model.tanggal_transaksi)<br><br>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="section-title">Ringkasan Pembelian</div>
+                <p class="section-lead">Item yang sudah dibeli tidak dapat dibatalkan.</p>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-md">
+                        <tr>
+                            <th data-width="40">#</th>
+                            <th>Item</th>
+                            <th class="text-center">Harga</th>
+                            <th class="text-center">Jumlah</th>
+                            <th class="text-right">Total</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>@Html.DisplayFor(model => model.item.tipe)</td>
+                            <td class="text-center">Rp @Html.DisplayFor(model => model.harga_satuan_temp)</td>
+                            <td class="text-center">@Html.DisplayFor(model => model.qty)</td>
+                            <td class="text-right">Rp @Html.DisplayFor(model => model.total_harga)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-8">
+                        <div class="section-title">Deskripsi</div>
+                        <p class="section-lead">@Html.DisplayFor(model => model.deskripsi)</p>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <div class="invoice-detail-item">
+                            <div class="invoice-detail-name">Total  Harga</div>
+                            <div class="invoice-detail-value invoice-detail-value-lg">Rp @Html.DisplayFor(model => model.total_harga)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="text-md-right">
+        <button class="btn btn-warning btn-icon icon-left btn-block" onclick="printLoadOtherPage(this)"><i class="fas fa-print"></i> Print Invoice</button>
+    </div>
+</div>
+<!--
+<div class="card">
+    <div class="card-body">
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.tanggal_transaksi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tanggal_transaksi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.qty)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.qty)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.harga_satuan_temp)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.harga_satuan_temp)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.total_harga)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.total_harga)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.deskripsi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.deskripsi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.item.tipe)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.item.tipe)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>-->
+<script>
+    var pathUrl = window.location.pathname;
+    var id = pathUrl.substring(20).toString();
+
+        function printLoadOtherPage() {
+            $("<iframe>")                             // create a new iframe element
+            .hide()                               // make it invisible
+            .attr("src", "/PrintTransaksis/Details/" + id) // point the iframe to the page you want to print
+            .appendTo("body");                    // add iframe to the DOM to cause it to load the page
+        }
+</script>

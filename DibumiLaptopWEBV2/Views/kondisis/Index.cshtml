@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DibumiLaptopWEBV2.Models.kondisi>
+
+@{
+    ViewBag.Title = "Kelola Kondisi";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { message = "yuhuuu" }, new { @class = "btn btn-primary" })
+</p>
+<div class="table-responsive">
+    <table class="table table-striped" id="table-2">
+        <thead>
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nama)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.deskripsi)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nama)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deskripsi)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+                            </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    </div>
+
+    @section Scripts {
+        <script type="text/javascript" src="/Content/DataTables/datatables.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#table-2').DataTable();
+            });
+        </script>
+    }
+    @section Styles {
+        <link rel="stylesheet" type="text/css" href="/Content/DataTables/datatables.css" />
+    }

@@ -1,0 +1,66 @@
+﻿@model DibumiLaptopWEBV2.Models.transaksi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>transaksi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tanggal_transaksi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tanggal_transaksi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.harga_satuan_temp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.harga_satuan_temp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.total_harga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total_harga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deskripsi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deskripsi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.item.tipe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.item.tipe)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

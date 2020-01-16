@@ -1,0 +1,126 @@
+﻿@model IEnumerable<DibumiLaptopWEBV2.Models.transaksi>
+
+@{
+    ViewBag.Title = "Report Transaksi";
+    var totalQty = 0;
+    var totalUang = 0;
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Dari Tanggal</label>
+                        <input type="date" name="from" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Sampai Tanggal</label>
+                        <input type="date" name="to" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-block" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        @if (ViewBag.dateFrom != null && ViewBag.dateTo != null)
+        {
+    <label>Hasil Untuk Tanggal @ViewBag.dateFrom sampai @ViewBag.dateTo .</label>
+        }
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-2">
+                <thead>
+                    <tr>
+                        <th>
+                            Waktu Transaksi
+                        </th>
+                        <th>
+                            Tipe Item
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.qty)
+                        </th>
+                        <th>
+                            Harga
+                        </th>
+                        <th>
+                            Total Harga
+                        </th>
+                        <th>
+                            Deskripsi
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in Model)
+                    {
+                        totalQty = Convert.ToInt32(item.qty) + totalQty;
+                        totalUang = Convert.ToInt32(item.total_harga) + totalQty;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tanggal_transaksi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.item.tipe)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.qty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.harga_satuan_temp)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.total_harga)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.deskripsi)
+                            </td>
+                            <td>
+
+                                <a class="btn btn-primary" href="/transaksis/Details/@Html.DisplayFor(modelItem => item.id)">Details</a>
+                                <!-- @Html.ActionLink("Edit", "Edit", new { id = item.id })
+    @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Delete", "Delete", new { id = item.id }) -->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <strong>Rangkuman:</strong><br />
+        Total Terjual Sebanyak @totalQty Item, dengan perputaran uang mencapai Rp @totalUang .
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="/Content/DataTables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table-2').DataTable();
+        });
+    </script>
+}
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="/Content/DataTables/datatables.css" />
+}

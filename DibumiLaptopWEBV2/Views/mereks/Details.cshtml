@@ -1,0 +1,27 @@
+﻿@model DibumiLaptopWEBV2.Models.merek
+
+@{
+    ViewBag.Title = "Informasi Merek " + Model.nama;
+}
+
+    <div>
+
+        <div class="section-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4>
+                        Merek @Html.DisplayFor(model => model.nama)
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        @Html.DisplayFor(model => model.deskripsi)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

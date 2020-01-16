@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dibumilaptopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="garansi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama" Type="nvarchar(max)" />
+          <Property Name="deskripsi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="gudang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama" Type="nvarchar(max)" />
+          <Property Name="deskripsi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="merek_id" Type="bigint" />
+          <Property Name="tipe" Type="nvarchar(max)" />
+          <Property Name="deskripsi" Type="text" />
+          <Property Name="processor" Type="nvarchar(max)" />
+          <Property Name="ram" Type="nvarchar(max)" />
+          <Property Name="penyimpanan" Type="nvarchar(max)" />
+          <Property Name="ukuran_layar" Type="nvarchar(max)" />
+          <Property Name="stok" Type="bigint" />
+          <Property Name="gudang_id" Type="bigint" />
+          <Property Name="kondisi_id" Type="bigint" />
+          <Property Name="tanggal_ditambahkan" Type="datetime" />
+          <Property Name="garansi_id" Type="bigint" />
+          <Property Name="garansi_expired" Type="datetime" />
+          <Property Name="harga" Type="bigint" />
+        </EntityType>
+        <EntityType Name="item_stok">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_id" Type="bigint" />
+          <Property Name="type" Type="nvarchar(max)" />
+          <Property Name="stok" Type="bigint" />
+        </EntityType>
+        <EntityType Name="kondisi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama" Type="nvarchar(max)" />
+          <Property Name="deskripsi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="merek">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nama" Type="nvarchar(max)" />
+          <Property Name="deskripsi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="return_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="transaksi_id" Type="bigint" />
+          <Property Name="item_id" Type="bigint" />
+          <Property Name="tanggal_return" Type="datetime" />
+          <Property Name="status_return" Type="nvarchar" MaxLength="50" />
+          <Property Name="keterangan" Type="text" />
+          <Property Name="alasan_return" Type="text" />
+          <Property Name="qty" Type="int" />
+          <Property Name="harga_satuan_temp" Type="bigint" />
+          <Property Name="total_harga" Type="bigint" />
+          <Property Name="total_bayar_return" Type="bigint" />
+        </EntityType>
+        <EntityType Name="transaksi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_id" Type="bigint" />
+          <Property Name="tanggal_transaksi" Type="datetime" />
+          <Property Name="qty" Type="int" />
+          <Property Name="harga_satuan_temp" Type="bigint" />
+          <Property Name="total_harga" Type="bigint" />
+          <Property Name="deskripsi" Type="text" />
+        </EntityType>
+        <Association Name="FK_item_garansi">
+          <End Role="garansi" Type="Self.garansi" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="garansi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="garansi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_gudang">
+          <End Role="gudang" Type="Self.gudang" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gudang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="gudang_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_kondisi">
+          <End Role="kondisi" Type="Self.kondisi" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kondisi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="kondisi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_merek">
+          <End Role="merek" Type="Self.merek" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="merek">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="merek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_stok_item">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="item_stok" Type="Self.item_stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item_stok">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_return_item_item">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="return_item" Type="Self.return_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="return_item">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_return_item_transaksi">
+          <End Role="transaksi" Type="Self.transaksi" Multiplicity="0..1" />
+          <End Role="return_item" Type="Self.return_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transaksi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="return_item">
+              <PropertyRef Name="transaksi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transaksi_item">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="transaksi" Type="Self.transaksi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transaksi">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dibumilaptopModelStoreContainer">
+          <EntitySet Name="garansi" EntityType="Self.garansi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gudang" EntityType="Self.gudang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item" EntityType="Self.item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item_stok" EntityType="Self.item_stok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kondisi" EntityType="Self.kondisi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="merek" EntityType="Self.merek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="return_item" EntityType="Self.return_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transaksi" EntityType="Self.transaksi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_item_garansi" Association="Self.FK_item_garansi">
+            <End Role="garansi" EntitySet="garansi" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_gudang" Association="Self.FK_item_gudang">
+            <End Role="gudang" EntitySet="gudang" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_kondisi" Association="Self.FK_item_kondisi">
+            <End Role="kondisi" EntitySet="kondisi" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_merek" Association="Self.FK_item_merek">
+            <End Role="merek" EntitySet="merek" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_stok_item" Association="Self.FK_item_stok_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="item_stok" EntitySet="item_stok" />
+          </AssociationSet>
+          <AssociationSet Name="FK_return_item_item" Association="Self.FK_return_item_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="return_item" EntitySet="return_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_return_item_transaksi" Association="Self.FK_return_item_transaksi">
+            <End Role="transaksi" EntitySet="transaksi" />
+            <End Role="return_item" EntitySet="return_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transaksi_item" Association="Self.FK_transaksi_item">
+            <End Role="item" EntitySet="item" />
+            <End Role="transaksi" EntitySet="transaksi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dibumilaptopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="garansi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deskripsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="items" Relationship="Self.FK_item_garansi" FromRole="garansi" ToRole="item" />
+        </EntityType>
+        <EntityType Name="gudang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deskripsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="items" Relationship="Self.FK_item_gudang" FromRole="gudang" ToRole="item" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="merek_id" Type="Int64" />
+          <Property Name="tipe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deskripsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="processor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ram" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="penyimpanan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ukuran_layar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stok" Type="Int64" />
+          <Property Name="gudang_id" Type="Int64" />
+          <Property Name="kondisi_id" Type="Int64" />
+          <Property Name="tanggal_ditambahkan" Type="DateTime" Precision="3" />
+          <Property Name="garansi_id" Type="Int64" />
+          <Property Name="garansi_expired" Type="DateTime" Precision="3" />
+          <Property Name="harga" Type="Int64" />
+          <NavigationProperty Name="garansi" Relationship="Self.FK_item_garansi" FromRole="item" ToRole="garansi" />
+          <NavigationProperty Name="gudang" Relationship="Self.FK_item_gudang" FromRole="item" ToRole="gudang" />
+          <NavigationProperty Name="kondisi" Relationship="Self.FK_item_kondisi" FromRole="item" ToRole="kondisi" />
+          <NavigationProperty Name="merek" Relationship="Self.FK_item_merek" FromRole="item" ToRole="merek" />
+          <NavigationProperty Name="item_stok" Relationship="Self.FK_item_stok_item" FromRole="item" ToRole="item_stok" />
+          <NavigationProperty Name="return_item" Relationship="Self.FK_return_item_item" FromRole="item" ToRole="return_item" />
+          <NavigationProperty Name="transaksis" Relationship="Self.FK_transaksi_item" FromRole="item" ToRole="transaksi" />
+        </EntityType>
+        <EntityType Name="item_stok">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_id" Type="Int64" />
+          <Property Name="type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stok" Type="Int64" />
+          <NavigationProperty Name="item" Relationship="Self.FK_item_stok_item" FromRole="item_stok" ToRole="item" />
+        </EntityType>
+        <EntityType Name="kondisi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deskripsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="items" Relationship="Self.FK_item_kondisi" FromRole="kondisi" ToRole="item" />
+        </EntityType>
+        <EntityType Name="merek">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="deskripsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="items" Relationship="Self.FK_item_merek" FromRole="merek" ToRole="item" />
+        </EntityType>
+        <EntityType Name="return_item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="transaksi_id" Type="Int64" />
+          <Property Name="item_id" Type="Int64" />
+          <Property Name="tanggal_return" Type="DateTime" Precision="3" />
+          <Property Name="status_return" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="keterangan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="alasan_return" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="harga_satuan_temp" Type="Int64" />
+          <Property Name="total_harga" Type="Int64" />
+          <Property Name="total_bayar_return" Type="Int64" />
+          <NavigationProperty Name="item" Relationship="Self.FK_return_item_item" FromRole="return_item" ToRole="item" />
+          <NavigationProperty Name="transaksi" Relationship="Self.FK_return_item_transaksi" FromRole="return_item" ToRole="transaksi" />
+        </EntityType>
+        <EntityType Name="transaksi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_id" Type="Int64" />
+          <Property Name="tanggal_transaksi" Type="DateTime" Precision="3" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="harga_satuan_temp" Type="Int64" />
+          <Property Name="total_harga" Type="Int64" />
+          <Property Name="deskripsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="item" Relationship="Self.FK_transaksi_item" FromRole="transaksi" ToRole="item" />
+          <NavigationProperty Name="return_item" Relationship="Self.FK_return_item_transaksi" FromRole="transaksi" ToRole="return_item" />
+        </EntityType>
+        <Association Name="FK_item_garansi">
+          <End Role="garansi" Type="Self.garansi" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="garansi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="garansi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_gudang">
+          <End Role="gudang" Type="Self.gudang" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gudang">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="gudang_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_kondisi">
+          <End Role="kondisi" Type="Self.kondisi" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kondisi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="kondisi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_merek">
+          <End Role="merek" Type="Self.merek" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="merek">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="merek_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_item_stok_item">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="item_stok" Type="Self.item_stok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="item_stok">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_return_item_item">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="return_item" Type="Self.return_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="return_item">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_transaksi_item">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="transaksi" Type="Self.transaksi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="transaksi">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_return_item_transaksi">
+          <End Role="transaksi" Type="Self.transaksi" Multiplicity="0..1" />
+          <End Role="return_item" Type="Self.return_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="transaksi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="return_item">
+              <PropertyRef Name="transaksi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dibumilaptopAdoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="garansis" EntityType="Self.garansi" />
+          <EntitySet Name="gudangs" EntityType="Self.gudang" />
+          <EntitySet Name="items" EntityType="Self.item" />
+          <EntitySet Name="item_stok" EntityType="Self.item_stok" />
+          <EntitySet Name="kondisis" EntityType="Self.kondisi" />
+          <EntitySet Name="mereks" EntityType="Self.merek" />
+          <EntitySet Name="return_item" EntityType="Self.return_item" />
+          <EntitySet Name="transaksis" EntityType="Self.transaksi" />
+          <AssociationSet Name="FK_item_garansi" Association="Self.FK_item_garansi">
+            <End Role="garansi" EntitySet="garansis" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_gudang" Association="Self.FK_item_gudang">
+            <End Role="gudang" EntitySet="gudangs" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_kondisi" Association="Self.FK_item_kondisi">
+            <End Role="kondisi" EntitySet="kondisis" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_merek" Association="Self.FK_item_merek">
+            <End Role="merek" EntitySet="mereks" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_item_stok_item" Association="Self.FK_item_stok_item">
+            <End Role="item" EntitySet="items" />
+            <End Role="item_stok" EntitySet="item_stok" />
+          </AssociationSet>
+          <AssociationSet Name="FK_return_item_item" Association="Self.FK_return_item_item">
+            <End Role="item" EntitySet="items" />
+            <End Role="return_item" EntitySet="return_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_transaksi_item" Association="Self.FK_transaksi_item">
+            <End Role="item" EntitySet="items" />
+            <End Role="transaksi" EntitySet="transaksis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_return_item_transaksi" Association="Self.FK_return_item_transaksi">
+            <End Role="transaksi" EntitySet="transaksis" />
+            <End Role="return_item" EntitySet="return_item" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dibumilaptopModelStoreContainer" CdmEntityContainer="dibumilaptopAdoEntities">
+          <EntitySetMapping Name="garansis">
+            <EntityTypeMapping TypeName="dibumilaptopModel.garansi">
+              <MappingFragment StoreEntitySet="garansi">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gudangs">
+            <EntityTypeMapping TypeName="dibumilaptopModel.gudang">
+              <MappingFragment StoreEntitySet="gudang">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="dibumilaptopModel.item">
+              <MappingFragment StoreEntitySet="item">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="merek_id" ColumnName="merek_id" />
+                <ScalarProperty Name="tipe" ColumnName="tipe" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+                <ScalarProperty Name="processor" ColumnName="processor" />
+                <ScalarProperty Name="ram" ColumnName="ram" />
+                <ScalarProperty Name="penyimpanan" ColumnName="penyimpanan" />
+                <ScalarProperty Name="ukuran_layar" ColumnName="ukuran_layar" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+                <ScalarProperty Name="gudang_id" ColumnName="gudang_id" />
+                <ScalarProperty Name="kondisi_id" ColumnName="kondisi_id" />
+                <ScalarProperty Name="tanggal_ditambahkan" ColumnName="tanggal_ditambahkan" />
+                <ScalarProperty Name="garansi_id" ColumnName="garansi_id" />
+                <ScalarProperty Name="garansi_expired" ColumnName="garansi_expired" />
+                <ScalarProperty Name="harga" ColumnName="harga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_stok">
+            <EntityTypeMapping TypeName="dibumilaptopModel.item_stok">
+              <MappingFragment StoreEntitySet="item_stok">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kondisis">
+            <EntityTypeMapping TypeName="dibumilaptopModel.kondisi">
+              <MappingFragment StoreEntitySet="kondisi">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mereks">
+            <EntityTypeMapping TypeName="dibumilaptopModel.merek">
+              <MappingFragment StoreEntitySet="merek">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="return_item">
+            <EntityTypeMapping TypeName="dibumilaptopModel.return_item">
+              <MappingFragment StoreEntitySet="return_item">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="transaksi_id" ColumnName="transaksi_id" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="tanggal_return" ColumnName="tanggal_return" />
+                <ScalarProperty Name="status_return" ColumnName="status_return" />
+                <ScalarProperty Name="keterangan" ColumnName="keterangan" />
+                <ScalarProperty Name="alasan_return" ColumnName="alasan_return" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="harga_satuan_temp" ColumnName="harga_satuan_temp" />
+                <ScalarProperty Name="total_harga" ColumnName="total_harga" />
+                <ScalarProperty Name="total_bayar_return" ColumnName="total_bayar_return" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transaksis">
+            <EntityTypeMapping TypeName="dibumilaptopModel.transaksi">
+              <MappingFragment StoreEntitySet="transaksi">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="tanggal_transaksi" ColumnName="tanggal_transaksi" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="harga_satuan_temp" ColumnName="harga_satuan_temp" />
+                <ScalarProperty Name="total_harga" ColumnName="total_harga" />
+                <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

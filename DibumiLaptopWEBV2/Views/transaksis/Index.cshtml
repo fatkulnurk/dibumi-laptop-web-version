@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DibumiLaptopWEBV2.Models.transaksi>
+
+@{
+    ViewBag.Title = "Kelola Transaksi";
+}
+<p>
+    @Html.ActionLink("Create New", "Create", new { message = "yuhuuu" }, new { @class = "btn btn-primary" })
+</p>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-2">
+                <thead>
+                    <tr>
+                        <th>
+                            Waktu Transaksi
+                        </th>
+                        <th>
+                            Tipe Item
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.qty)
+                        </th>
+                        <th>
+                            Harga
+                        </th>
+                        <th>
+                            Total Harga
+                        </th>
+                        <th>
+                            Deskripsi
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tanggal_transaksi)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.item.tipe)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.harga_satuan_temp)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.total_harga)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.deskripsi)
+                        </td>
+                        <td>
+                            <!-- @Html.ActionLink("Edit", "Edit", new { id = item.id }) -->
+                            @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-primary" })
+                            <!-- @Html.ActionLink("Delete", "Delete", new { id = item.id }) -->
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <strong>Note:</strong><br />
+        Harga adalah harga untuk setiap item pada saat pembuatan transaksi.
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="/Content/DataTables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table-2').DataTable();
+        });
+    </script>
+}
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="/Content/DataTables/datatables.css" />
+}

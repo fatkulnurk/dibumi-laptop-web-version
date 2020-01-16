@@ -1,0 +1,221 @@
+﻿@model DibumiLaptopWEBV2.Models.return_item
+
+@{
+    ViewBag.Title = "Tambah Return Barang";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.transaksi_id, "Transaksi ID", htmlAttributes: new { @class = "control-label col-md-8" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("transaksi_id", null, htmlAttributes: new { @class = "form-control select2", onchange = "OnChangeEvent(this)", required = "required"  })
+                        @Html.ValidationMessageFor(model => model.transaksi_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    var itemOBJ = 0;
+                    var transaksiOBJ = 0;
+
+                    function OnChangeEvent(event) {
+                        var id = event.value;
+                        console.log(id)
+                        
+                        $.get("/sapi/transaksi/" + id, function (item_data, status) {
+                            transaksiOBJ = item_data;
+                            console.log("transaksi");
+                            console.log(transaksiOBJ.qty);
+                            document.getElementById("harga_satuan_temp").value = transaksiOBJ.harga_satuan_temp;
+                            // document.getElementById("qty-max").value = transaksiOBJ.qty;
+                            document.getElementById("total_harga").value = transaksiOBJ.total_harga;
+                            document.getElementById("fnk_transaksi_deskripsi").value = transaksiOBJ.deskripsi;
+
+                            // alert("Data: " + transaksiOBJ + "\nStatus: " + status);
+
+                            $.get("/sapi/item/" + transaksiOBJ.item_id, function (data, status) {
+                                console.log("item");
+                                console.log(data)
+                                // alert("Data: " + data + "\nStatus: " + status);
+                                itemOBJ = data;
+
+                                $.get("/sapi/merek/" + data.merek_id, function (xdata, status) {
+
+                                    document.getElementById("fnk_item_merek").value = xdata.nama;
+                                });
+                                document.getElementById("fnk_item_deskripsi").value = data.deskripsi;
+                                document.getElementById("fnk_item_processor").value = data.processor;
+                                document.getElementById("fnk_item_ram").value = data.ram;
+                                document.getElementById("fnk_item_penyimpanan").value = data.penyimpanan;
+                                document.getElementById("fnk_item_ukuran_layar").value = data.ukuran_layar;
+                                document.getElementById("fnk_item_stok").value = data.stok;
+                                document.getElementById("fnk_item_harga").value = data.harga;
+                            });
+                            console.log(event.value);
+                        });
+                    }
+
+                    function OnChangeEventQty(event) {
+                        if (itemOBJ == 0) {
+                            window.alert("Silakan pilih item terlebih dahulu");
+                            document.getElementById("qty").value = 0;
+                        }
+
+                        if (event.value < 0) {
+                            window.alert("Nilai harus lebih dari 0");
+                            document.getElementById("qty").value = 1;
+                        }
+
+                        if (event.value > transaksiOBJ.qty) {
+                            window.alert("Nilai harus kurang dari jumlah pembelian (sebanyak " + transaksiOBJ.qty + ")");
+                            document.getElementById("qty").value = 0;
+                        }
+                    }
+                </script>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.tanggal_return, "Tanggal Pengajuan Return", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.tanggal_return, new { htmlAttributes = new { @class = "form-control", @type = "date", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.tanggal_return, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.keterangan,"Masukan keterangan, seperti no hp atau apapun.", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.keterangan, new { htmlAttributes = new { @class = "form-control", required = "required"  } })
+                        @Html.ValidationMessageFor(model => model.keterangan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.alasan_return, "Masukan Alasan Pengajuan Return", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.alasan_return, new { htmlAttributes = new { @class = "form-control", required = "required"  } })
+                        @Html.ValidationMessageFor(model => model.alasan_return, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.qty, "Jumlah Yang Ingin Di return", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.qty, new { htmlAttributes = new { @class = "form-control", onchange = "OnChangeEventQty(this)", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.qty, "", new { @class = "text-danger" })    
+                    </div>
+                 </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.harga_satuan_temp, "Harga satuan (saat transaksi)", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.harga_satuan_temp, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.harga_satuan_temp, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.total_harga, "Total Harga Pembelian (saat transaksi)", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.total_harga, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.total_harga, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.total_bayar_return,"Total Yang Ingin Dibayarkan Ke Konsumen", htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.total_bayar_return, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.total_bayar_return, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div style="max-height:560px; overflow-y:scroll;">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Merek</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_merek" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Deskripsi</label>
+                    <div class="col-md-12">
+                        <textarea id="fnk_item_deskripsi" type="text" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Processor</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_processor" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Ram</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_ram" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Penyimpanan</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_penyimpanan" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-7">Ukuran Layar</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_ukuran_layar" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Stok</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_stok" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-10">Harga</label>
+                    <div class="col-md-12">
+                        <input id="fnk_item_harga" type="text" class="form-control text-box single-line" />
+                    </div>
+                </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-10">Deskripsi Transaksi</label>
+                    <div class="col-md-12">
+                        <textarea id="fnk_transaksi_deskripsi" type="text" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Tambah Return Barang" class="btn btn-primary btn-block" />
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+            @section Scripts {
+                <script src="/Content/assets/modules/select2/dist/js/select2.full.min.js"></script>
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+
+            @section Styles {
+                <link rel="stylesheet" href="/Content/assets/modules/select2/dist/css/select2.min.css">
+                <link rel="stylesheet" href="/Content/assets/modules/jquery-selectric/selectric.css">
+            }

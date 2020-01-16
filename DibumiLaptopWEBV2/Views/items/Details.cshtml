@@ -1,0 +1,111 @@
+﻿@model DibumiLaptopWEBV2.Models.item
+
+@{
+    ViewBag.Title = "Detail " + Model.tipe;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>@Html.DisplayFor(model => model.merek.nama) - @Html.DisplayFor(model => model.tipe)</h4>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        @Html.DisplayFor(model => model.deskripsi)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Harga</b> <br />
+                        @Html.DisplayFor(model => model.harga)
+                    </td>
+                    <td>
+                        <b>Merek</b> <br />
+                        @Html.DisplayFor(model => model.merek.nama)
+                    </td>
+                    <td>
+                        <b>Stok</b> <br />
+                        @Html.DisplayFor(model => model.stok)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Processor</b> <br />
+                        @Html.DisplayFor(model => model.processor)
+                    </td>
+                    <td>
+                        <b>Ram</b> <br />
+                        @Html.DisplayFor(model => model.ram)
+                    </td>
+                    <td>
+                        <b>Penyimpanan</b> <br />
+                        @Html.DisplayFor(model => model.penyimpanan)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Jenis Garansi</b> <br />
+                        @Html.DisplayFor(model => model.garansi.nama)
+                    </td>
+                    <td>
+                        <b>Garansi Expired Pada</b> <br />
+                        @Html.DisplayFor(model => model.garansi_expired)
+                    </td>
+                    <td>
+                        <b>Barang ditambahkan pada</b> <br />
+                        @Html.DisplayFor(model => model.tanggal_ditambahkan)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Ukuran Layar</b> <br />
+                        @Html.DisplayFor(model => model.ukuran_layar)
+                    </td>
+                    <td>
+                        <b>Lokasi Gudang</b> <br />
+                        @Html.DisplayFor(model => model.gudang.nama)
+                    </td>
+                    <td>
+                        <b>Kondisi Barang</b> <br />
+                        @Html.DisplayFor(model => model.kondisi.nama)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h4>Riwayat Stok</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id Stk</th>
+                    <th>Tipe</th>
+                    <th>Jumlah Stok</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.item_Stok)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.type</td>
+                        <td>@item.stok</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+    -->

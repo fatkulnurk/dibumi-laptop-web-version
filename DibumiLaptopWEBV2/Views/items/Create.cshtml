@@ -1,0 +1,212 @@
+﻿@model DibumiLaptopWEBV2.Models.item
+
+@{
+    ViewBag.Title = "Tambah Item";
+} 
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.merek_id, "merek_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("merek_id", null, htmlAttributes: new { @class = "form-control", onchange = "OnChangeEvent(this)" })
+                @Html.ValidationMessageFor(model => model.merek_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                Deskripsi Merek: <br />
+                <span id="merek_deskripsi_text"></span>
+            </div>
+            <!-- <input class="form-control text-box single-line" id="merek-deskripsi" type="text" value="" /> -->
+        </div>
+
+        <script type="text/javascript">
+            var id = 0;
+            var idGaransi = 0;
+            var idGudang = 0;
+            function OnChangeEvent(event) {
+                // console.log(event.value)
+                id = event.value;
+                $.get("/sapi/merek/" + id, function (data, status) {
+                    //console.log(data);
+                    // document.getElementById("merek-deskripsi").value = data.deskripsi;
+                    document.getElementById("merek_deskripsi_text").innerText = data.deskripsi;
+                });
+            }
+
+            function OnChangeGaransiEvent(event) {
+                // console.log(event.value)
+                idGaransi = event.value;
+                $.get("/sapi/garansi/" + idGaransi, function (data, status) {
+                    //console.log(data);
+                    // document.getElementById("merek-deskripsi").value = data.deskripsi;
+                    document.getElementById("garansi_deskripsi_text").innerText = data.deskripsi;
+                });
+            }
+
+            function OnChangeGudangEvent(event) {
+                // console.log(event.value)
+                idGudang = event.value;
+                $.get("/sapi/gudang/" + idGudang, function (data, status) {
+                    //console.log(data);
+                    // document.getElementById("merek-deskripsi").value = data.deskripsi;
+                    document.getElementById("gudang_deskripsi_text").innerText = data.deskripsi;
+                });
+            }
+        </script>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tipe, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tipe, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tipe, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.deskripsi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.deskripsi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.deskripsi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.processor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.processor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.processor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ram, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ram, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ram, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.penyimpanan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.penyimpanan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.penyimpanan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ukuran_layar, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ukuran_layar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ukuran_layar, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.stok, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.stok, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.stok, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.gudang_id, "gudang_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("gudang_id", null, htmlAttributes: new { @class = "form-control", onchange = "OnChangeGudangEvent(this)" })
+                @Html.ValidationMessageFor(model => model.gudang_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                Alamat Gudang: <br />
+                <span id="gudang_deskripsi_text"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kondisi_id, "kondisi_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("kondisi_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.kondisi_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tanggal_ditambahkan, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tanggal_ditambahkan, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.tanggal_ditambahkan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.garansi_id, "garansi_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("garansi_id", null, htmlAttributes: new { @class = "form-control", onchange = "OnChangeGaransiEvent(this)" })
+                @Html.ValidationMessageFor(model => model.garansi_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                Deskripsi Garansi: <br />
+                <span id="garansi_deskripsi_text"></span>
+            </div>
+            <!-- <input class="form-control text-box single-line" id="merek-deskripsi" type="text" value="" /> -->
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.garansi_expired, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.garansi_expired, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.garansi_expired, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.harga, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.harga, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.harga, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tambah Item" class="btn btn-primary btn-block" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+
+    <script src="/Content/assets/modules/cleave-js/dist/cleave.min.js"></script>
+    <script src="/Content/assets/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
+    <script src="/Content/assets/modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+    <script src="/Content/assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="/Content/assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/Content/assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="/Content/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="/Content/assets/modules/select2/dist/js/select2.full.min.js"></script>
+    <script src="/Content/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+    @Scripts.Render("~/Content/assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js")
+    @Scripts.Render("~/Content/assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js")
+    @Scripts.Render("~/Content/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/Content/assets/js/page/forms-advanced-forms.js")
+}

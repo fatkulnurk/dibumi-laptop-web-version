@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DibumiLaptopWEBV2.Models.return_item>
+
+@{
+    ViewBag.Title = "Return Transaksi";
+}
+
+<p>
+    @Html.ActionLink("Tambah Data", "Create", new { message = "yuhuuu" }, new { @class = "btn btn-primary" })
+</p>
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-2">
+                <thead>
+                    <tr>
+                        <th>
+                            Tanggal Pengajuan
+                        </th>
+                        <th>
+                            Transaksi ID
+                        </th>
+                        <th>
+                            Item ID<br /> Atau Barang
+                        </th>
+                        <th>
+                            Status Pengajuan
+                        </th>
+                        <th>
+                            Jumlah Return
+                        </th>
+                        <th>
+                            Total Pengajuan
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tanggal_return)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.transaksi_id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.item_id) /
+                            @Html.DisplayFor(modelItem => item.item.tipe)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.status_return)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.total_bayar_return)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detail Pengajuan", "Edit", new { id = item.id }, new { @class = "btn btn-primary btn-block" })
+                            <!--
+    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                -->
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="/Content/DataTables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table-2').DataTable();
+        });
+    </script>
+}
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="/Content/DataTables/datatables.css" />
+}

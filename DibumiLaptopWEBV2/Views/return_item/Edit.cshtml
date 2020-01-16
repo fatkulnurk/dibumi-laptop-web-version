@@ -1,0 +1,174 @@
+﻿@model DibumiLaptopWEBV2.Models.return_item
+
+@{
+    ViewBag.Title = "Detail Pengajuan Item";
+    var returnItemOne = ViewBag.return_item;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Transaksi ID</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.transaksi_id)" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Status Return:</label>
+                            <div class="col-12">
+                                <select class="form-control" id="status_return" name="status_return">
+                                    @if (returnItemOne.status_return == "Pending")
+                                    {
+                                        <option value="Pending" selected>Pending</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Pending">Pending</option>
+                                    }
+                                    @if (returnItemOne.status_return == "Disetujui")
+                                    {
+                                        <option value="Disetujui" selected>Disetujui</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Disetujui">Disetujui</option>
+                                    }
+                                    @if (returnItemOne.status_return == "Ditolak")
+                                    {
+                                        <option value="Ditolak" selected>Ditolak</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Ditolak">Ditolak</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Tanggal Pengajuan Return</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.tanggal_return)" disabled />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Harga Satuan Saat Trx</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.harga_satuan_temp)" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Total Pengajuan Return</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.total_bayar_return)" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-12" for="keterangan">Alasan Pengajuan Return</label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" cols="20" disabled>
+                                        @Html.DisplayFor(model => model.alasan_return)
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Harga Total Trx</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.total_harga)" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">Qty Return</label>
+                                    <div class="col-md-12">
+                                        <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.qty)" disabled />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-12" for="keterangan">Keterangan</label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" cols="20" disabled>
+                                        @Html.DisplayFor(model => model.keterangan)
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Item ID</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item_id)" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Tipe</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item.tipe)" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Processor</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item.processor)" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Ram</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item.ram)" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Penyimpanan</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item.penyimpanan)" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Merek</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item.merek.nama)" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">Jenis Barang</label>
+                            <div class="col-md-12">
+                                <input class="form-control text-box single-line" value="@Html.DisplayFor(model => model.item.kondisi.nama)" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12">
+                        <input type="submit" value="Update Data" class="btn btn-primary btn-block" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

@@ -1,0 +1,148 @@
+﻿@model IEnumerable<DibumiLaptopWEBV2.Models.item>
+
+@{
+    ViewBag.Title = "Kelola Item";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { message = "yuhuuu" }, new { @class = "btn btn-primary" })
+</p>
+<div class="card">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-2">
+                <thead>
+
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tipe)
+                        </th>
+                        <!--
+    <th>
+        <div style="width:350px !important">
+            @Html.DisplayNameFor(model => model.deskripsi)
+        </div>
+    </th>
+    -->
+                        <th>
+                            @Html.DisplayNameFor(model => model.processor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ram)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.penyimpanan)
+                        </th>
+                        <!--
+    <th>
+        <div style="width:150px !important">
+            @Html.DisplayNameFor(model => model.ukuran_layar)
+        </div>
+    </th>
+        -->
+                        <th>
+                            @Html.DisplayNameFor(model => model.stok)
+                        </th>
+                        <!--
+    <th>
+        @Html.DisplayNameFor(model => model.tanggal_ditambahkan)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.garansi_expired)
+    </th>-->
+                        <th>
+                            @Html.DisplayNameFor(model => model.harga)
+                        </th>
+                        <th>
+                            Jenis Garansi
+                        </th>
+                        <th>
+                            Nama Gudang
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Merek
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipe)
+                        </td>
+                        <!--
+    <td>
+        @Html.DisplayFor(modelItem => item.deskripsi)
+    </td>
+    -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.processor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ram)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.penyimpanan)
+                        </td>
+                        <!--
+    <td>
+        @Html.DisplayFor(modelItem => item.ukuran_layar)
+    </td>-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.stok)
+                        </td>
+                        <!--
+    <td>
+        @Html.DisplayFor(modelItem => item.tanggal_ditambahkan)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.garansi_expired)
+    </td>-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.harga)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.garansi.nama)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.gudang.nama)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.kondisi.nama)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.merek.nama)
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <!--@Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary" })-->
+                                @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                                <!--@Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })-->
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript" src="/Content/DataTables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table-2').DataTable();
+        });
+    </script>
+}
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="/Content/DataTables/datatables.css" />
+}

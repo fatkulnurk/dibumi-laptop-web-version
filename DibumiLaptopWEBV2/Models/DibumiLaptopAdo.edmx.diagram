@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e537a7c0af0844b7aa95cbed274af0fb" Name="Diagram1">
+        <EntityTypeShape EntityType="dibumilaptopModel.garansi" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.gudang" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.item" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.item_stok" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.kondisi" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.merek" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.return_item" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dibumilaptopModel.transaksi" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="dibumilaptopModel.FK_item_garansi" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_item_gudang" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_item_kondisi" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_item_merek" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_item_stok_item" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_return_item_item" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_transaksi_item" ManuallyRouted="false" />
+        <AssociationConnector Association="dibumilaptopModel.FK_return_item_transaksi" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

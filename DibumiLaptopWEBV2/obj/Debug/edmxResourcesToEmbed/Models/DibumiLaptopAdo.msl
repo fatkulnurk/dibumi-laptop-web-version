@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dibumilaptopModelStoreContainer" CdmEntityContainer="dibumilaptopAdoEntities">
+    <EntitySetMapping Name="garansis">
+      <EntityTypeMapping TypeName="dibumilaptopModel.garansi">
+        <MappingFragment StoreEntitySet="garansi">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nama" ColumnName="nama" />
+          <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="gudangs">
+      <EntityTypeMapping TypeName="dibumilaptopModel.gudang">
+        <MappingFragment StoreEntitySet="gudang">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nama" ColumnName="nama" />
+          <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="items">
+      <EntityTypeMapping TypeName="dibumilaptopModel.item">
+        <MappingFragment StoreEntitySet="item">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="merek_id" ColumnName="merek_id" />
+          <ScalarProperty Name="tipe" ColumnName="tipe" />
+          <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+          <ScalarProperty Name="processor" ColumnName="processor" />
+          <ScalarProperty Name="ram" ColumnName="ram" />
+          <ScalarProperty Name="penyimpanan" ColumnName="penyimpanan" />
+          <ScalarProperty Name="ukuran_layar" ColumnName="ukuran_layar" />
+          <ScalarProperty Name="stok" ColumnName="stok" />
+          <ScalarProperty Name="gudang_id" ColumnName="gudang_id" />
+          <ScalarProperty Name="kondisi_id" ColumnName="kondisi_id" />
+          <ScalarProperty Name="tanggal_ditambahkan" ColumnName="tanggal_ditambahkan" />
+          <ScalarProperty Name="garansi_id" ColumnName="garansi_id" />
+          <ScalarProperty Name="garansi_expired" ColumnName="garansi_expired" />
+          <ScalarProperty Name="harga" ColumnName="harga" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="item_stok">
+      <EntityTypeMapping TypeName="dibumilaptopModel.item_stok">
+        <MappingFragment StoreEntitySet="item_stok">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="item_id" ColumnName="item_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="stok" ColumnName="stok" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="kondisis">
+      <EntityTypeMapping TypeName="dibumilaptopModel.kondisi">
+        <MappingFragment StoreEntitySet="kondisi">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nama" ColumnName="nama" />
+          <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mereks">
+      <EntityTypeMapping TypeName="dibumilaptopModel.merek">
+        <MappingFragment StoreEntitySet="merek">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nama" ColumnName="nama" />
+          <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="return_item">
+      <EntityTypeMapping TypeName="dibumilaptopModel.return_item">
+        <MappingFragment StoreEntitySet="return_item">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="transaksi_id" ColumnName="transaksi_id" />
+          <ScalarProperty Name="item_id" ColumnName="item_id" />
+          <ScalarProperty Name="tanggal_return" ColumnName="tanggal_return" />
+          <ScalarProperty Name="status_return" ColumnName="status_return" />
+          <ScalarProperty Name="keterangan" ColumnName="keterangan" />
+          <ScalarProperty Name="alasan_return" ColumnName="alasan_return" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="harga_satuan_temp" ColumnName="harga_satuan_temp" />
+          <ScalarProperty Name="total_harga" ColumnName="total_harga" />
+          <ScalarProperty Name="total_bayar_return" ColumnName="total_bayar_return" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transaksis">
+      <EntityTypeMapping TypeName="dibumilaptopModel.transaksi">
+        <MappingFragment StoreEntitySet="transaksi">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="item_id" ColumnName="item_id" />
+          <ScalarProperty Name="tanggal_transaksi" ColumnName="tanggal_transaksi" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="harga_satuan_temp" ColumnName="harga_satuan_temp" />
+          <ScalarProperty Name="total_harga" ColumnName="total_harga" />
+          <ScalarProperty Name="deskripsi" ColumnName="deskripsi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
